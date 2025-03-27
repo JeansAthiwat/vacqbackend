@@ -1,28 +1,36 @@
 const express = require("express");
 const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
+const cors = require("cors"); // Add this line
 const connectDB = require("./config/db");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
 
-//Connect to database
+// Connect to database
 connectDB();
 
-//Route files
+// Route files
 const hospitals = require("./routes/hospitals");
 const appointments = require("./routes/appointments");
 const auth = require("./routes/auth");
 
 const app = express();
 
-//Body parser
+// Enable CORS - you can restrict it by specifying origin if needed
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+  })
+);
+
+// Body parser
 app.use(express.json());
 
-//Cookie parser
+// Cookie parser
 app.use(cookieParser());
 
-//Mount routers
+// Mount routers
 app.use("/api/v1/hospitals", hospitals);
 app.use("/api/v1/appointments", appointments);
 app.use("/api/v1/auth", auth);
