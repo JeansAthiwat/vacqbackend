@@ -18,11 +18,7 @@ const auth = require("./routes/auth");
 const app = express();
 
 // Enable CORS - you can restrict it by specifying origin if needed
-app.use(
-  cors({
-    origin: "http://localhost:5173",
-  })
-);
+app.use(cors());
 
 // Body parser
 app.use(express.json());
