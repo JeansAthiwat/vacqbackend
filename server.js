@@ -3,6 +3,9 @@ const dotenv = require("dotenv");
 const cookieParser = require("cookie-parser");
 const cors = require("cors"); // Add this line
 const connectDB = require("./config/db");
+const mongoSanitize = require("express-mongo-sanitize");
+const helmet = require("helmet");
+const { xss } = require("express-xss-sanitizer");
 
 // Load env vars
 dotenv.config({ path: "./config/config.env" });
@@ -19,6 +22,13 @@ const app = express();
 
 // Enable CORS - you can restrict it by specifying origin if needed
 app.use(cors());
+
+//Sanitize data
+app.use(mongoSanitize());
+//Set security headers
+app.use(helmet());
+//Prevent XSS attacks
+app.use(xss());
 
 // Body parser
 app.use(express.json());
