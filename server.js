@@ -22,6 +22,9 @@ const auth = require("./routes/auth");
 
 const app = express();
 
+// Body parser
+app.use(express.json());
+
 // Enable CORS - you can restrict it by specifying origin if needed
 app.use(cors());
 
@@ -38,9 +41,6 @@ const limiter = rateLimit({
 });
 //Prevent http param pollution
 app.use(hpp());
-
-// Body parser
-app.use(express.json());
 
 // Cookie parser
 app.use(cookieParser());
